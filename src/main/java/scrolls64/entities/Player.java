@@ -28,7 +28,8 @@ public class Player {
 	@Column(length=24)
 	private String password;
 	
-    @Temporal(TemporalType.DATE) java.time.LocalDate createdAt;
+    @Temporal(TemporalType.DATE) 
+    java.time.LocalDate createdAt;
     
     @OneToMany(mappedBy="interpreter", cascade = CascadeType.PERSIST)
     private Set <Character> characters;
@@ -88,6 +89,5 @@ public class Player {
 	public void setCharacters(Set<Character> characters) {
 		this.characters = characters;
 	}
-	
 	
 }

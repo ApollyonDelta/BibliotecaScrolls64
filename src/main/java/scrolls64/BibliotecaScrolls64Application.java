@@ -4,7 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
+// IMPORTANTE: TROCAR A SENHA DO BANCO DE ACORDO COM A MÁQUINA CORRESPONDENTE
+@SpringBootApplication
 public class BibliotecaScrolls64Application {
 
 	public static void main(String[] args) {

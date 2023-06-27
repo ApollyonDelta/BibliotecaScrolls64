@@ -1,6 +1,7 @@
 package scrolls64.entities;
 
 import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -10,54 +11,58 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
+@Table(name = "player_character")
 public class Character {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@Column(length=255)
-	private String name;
-	
-	@Column(length=50)
-	private String race;
-	
-	@Column(length=50)
-	private String charClass;
-	
-	@Column(length=255)
-	private String concept;
-	
+
+	@Column(length = 255)
+	private String char_name;
+
+	@Column(length = 50)
+	private String char_race;
+
+	@Column(length = 50)
+	private String char_class;
+
+	@Column(length = 255)
+	private String char_concept;
+
 	@Column
-	private int hitpoints;
-	
-	@Temporal(TemporalType.DATE) java.time.LocalDate createdAt;
-	
+	private int char_hitpoints;
+
+	@Temporal(TemporalType.DATE)
+	java.time.LocalDate createdAt;
+
 	@Enumerated(EnumType.ORDINAL)
-	private Status status;
-	
-	@Column(length=50)
-	private String system;
-	
+	private CharStatus char_status;
+
+	@Column(length = 50)
+	private String RPG_system;
+
 	@ManyToOne
-	@JoinColumn(name="interpreter", nullable=false)
+	@JoinColumn(name="player_id", referencedColumnName = "id")
 	private Player interpreter;
 
-	public Character(Integer id, String name, String race, String charClass, String concept, int hitpoints,
-			LocalDate createdAt, Status status, String system) {
+	public Character(Integer id, String char_name, String char_race, String char_class, String char_concept,
+			int char_hitpoints, LocalDate createdAt, CharStatus char_status, String rPG_system) {
+		super();
 		this.id = id;
-		this.name = name;
-		this.race = race;
-		this.charClass = charClass;
-		this.concept = concept;
-		this.hitpoints = hitpoints;
+		this.char_name = char_name;
+		this.char_race = char_race;
+		this.char_class = char_class;
+		this.char_concept = char_concept;
+		this.char_hitpoints = char_hitpoints;
 		this.createdAt = createdAt;
-		this.status = status;
-		this.system = system;
+		this.char_status = char_status;
+		RPG_system = rPG_system;
 	}
 
 	public Integer getId() {
@@ -68,44 +73,44 @@ public class Character {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getChar_name() {
+		return char_name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setChar_name(String char_name) {
+		this.char_name = char_name;
 	}
 
-	public String getRace() {
-		return race;
+	public String getChar_race() {
+		return char_race;
 	}
 
-	public void setRace(String race) {
-		this.race = race;
+	public void setChar_race(String char_race) {
+		this.char_race = char_race;
 	}
 
-	public String getCharClass() {
-		return charClass;
+	public String getChar_class() {
+		return char_class;
 	}
 
-	public void setCharClass(String charClass) {
-		this.charClass = charClass;
+	public void setChar_class(String char_class) {
+		this.char_class = char_class;
 	}
 
-	public String getConcept() {
-		return concept;
+	public String getChar_concept() {
+		return char_concept;
 	}
 
-	public void setConcept(String concept) {
-		this.concept = concept;
+	public void setChar_concept(String char_concept) {
+		this.char_concept = char_concept;
 	}
 
-	public int getHitpoints() {
-		return hitpoints;
+	public int getChar_hitpoints() {
+		return char_hitpoints;
 	}
 
-	public void setHitpoints(int hitpoints) {
-		this.hitpoints = hitpoints;
+	public void setChar_hitpoints(int char_hitpoints) {
+		this.char_hitpoints = char_hitpoints;
 	}
 
 	public java.time.LocalDate getCreatedAt() {
@@ -116,20 +121,20 @@ public class Character {
 		this.createdAt = createdAt;
 	}
 
-	public Status getStatus() {
-		return status;
+	public CharStatus getChar_status() {
+		return char_status;
 	}
 
-	public void setStatus(Status status) {
-		this.status = status;
+	public void setChar_status(CharStatus char_status) {
+		this.char_status = char_status;
 	}
 
-	public String getSystem() {
-		return system;
+	public String getRPG_system() {
+		return RPG_system;
 	}
 
-	public void setSystem(String system) {
-		this.system = system;
+	public void setRPG_system(String rPG_system) {
+		RPG_system = rPG_system;
 	}
 
 	public Player getInterpreter() {
@@ -139,5 +144,5 @@ public class Character {
 	public void setInterpreter(Player interpreter) {
 		this.interpreter = interpreter;
 	}
-	
+
 }

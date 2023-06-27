@@ -1,5 +1,5 @@
 package scrolls64.entities;
 
-public enum Status {
+public enum CharStatus {
 	ATIVO, MORTO, HIATO, INATIVO;
 }
