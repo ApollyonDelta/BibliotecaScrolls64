@@ -1,8 +1,7 @@
 package scrolls64.entities;
 
 import java.time.LocalDate;
-import java.util.List;
-
+import java.util.Set;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +31,7 @@ public class Player {
     @Temporal(TemporalType.DATE) java.time.LocalDate createdAt;
     
     @OneToMany(mappedBy="interpreter", cascade = CascadeType.PERSIST)
-    private List<Character> characters;
+    private Set <Character> characters;
 
 	public Player(Integer id, String username, String email, String password, LocalDate createdAt) {
 		this.id = id;
@@ -82,11 +81,11 @@ public class Player {
 		this.createdAt = createdAt;
 	}
 
-	public List<Character> getCharacters() {
+	public Set<Character> getCharacters() {
 		return characters;
 	}
 
-	public void setCharacters(List<Character> characters) {
+	public void setCharacters(Set<Character> characters) {
 		this.characters = characters;
 	}
 	

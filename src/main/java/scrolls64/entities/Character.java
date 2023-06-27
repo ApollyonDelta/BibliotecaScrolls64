@@ -44,7 +44,7 @@ public class Character {
 	private String system;
 	
 	@ManyToOne
-	@JoinColumn(name="player_id")
+	@JoinColumn(name="interpreter", nullable=false)
 	private Player interpreter;
 
 	public Character(Integer id, String name, String race, String charClass, String concept, int hitpoints,
