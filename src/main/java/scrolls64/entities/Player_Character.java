@@ -17,7 +17,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "player_character")
-public class Character {
+public class Player_Character {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,18 +51,17 @@ public class Character {
 	@JoinColumn(name="player_id", referencedColumnName = "id")
 	private Player interpreter;
 
-	public Character(Integer id, String char_name, String char_race, String char_class, String char_concept,
-			int char_hitpoints, LocalDate createdAt, CharStatus char_status, String rPG_system) {
-		super();
-		this.id = id;
+	public Player_Character(String char_name, String char_race, String char_class, String char_concept,
+			int char_hitpoints, CharStatus char_status, String rPG_system, Player interpreter) {
 		this.char_name = char_name;
 		this.char_race = char_race;
 		this.char_class = char_class;
 		this.char_concept = char_concept;
 		this.char_hitpoints = char_hitpoints;
-		this.createdAt = createdAt;
+		this.createdAt = LocalDate.now();
 		this.char_status = char_status;
 		RPG_system = rPG_system;
+		this.interpreter = interpreter;
 	}
 
 	public Integer getId() {

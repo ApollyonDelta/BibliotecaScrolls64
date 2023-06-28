@@ -19,10 +19,10 @@ public class Player {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(length=255)
+	@Column(length=255, unique=true)
 	private String username;
 	
-	@Column(length=100)
+	@Column(length=100, unique=true)
 	private String email;
 	
 	@Column(length=24)
@@ -32,14 +32,13 @@ public class Player {
     java.time.LocalDate createdAt;
     
     @OneToMany(mappedBy="interpreter", cascade = CascadeType.PERSIST)
-    private Set <Character> characters;
+    private Set <Player_Character> characters;
 
-	public Player(Integer id, String username, String email, String password, LocalDate createdAt) {
-		this.id = id;
+	public Player(String username, String email, String password) {
 		this.username = username;
 		this.email = email;
 		this.password = password;
-		this.createdAt = createdAt;
+		this.createdAt = LocalDate.now();
 	}
 
 	public Integer getId() {
@@ -82,11 +81,11 @@ public class Player {
 		this.createdAt = createdAt;
 	}
 
-	public Set<Character> getCharacters() {
+	public Set<Player_Character> getCharacters() {
 		return characters;
 	}
 
-	public void setCharacters(Set<Character> characters) {
+	public void setCharacters(Set<Player_Character> characters) {
 		this.characters = characters;
 	}
 	
