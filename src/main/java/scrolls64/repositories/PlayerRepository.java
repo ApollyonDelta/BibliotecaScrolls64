@@ -7,6 +7,9 @@ import scrolls64.entities.Player;
 
 public interface PlayerRepository extends JpaRepository<Player, Integer> {
 	
+	@Query("SELECT COUNT(id) FROM Player")
+	int contarRegistrosDeJogadores();
+	
 	@Query("SELECT COUNT(id) FROM Player WHERE username LIKE :testedeusuario")
 	int verificarDisponibilidadeUsername(String testedeusuario);
 	

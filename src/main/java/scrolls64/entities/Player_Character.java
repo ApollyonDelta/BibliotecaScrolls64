@@ -36,7 +36,7 @@ public class Player_Character {
 	private String char_concept;
 
 	@Column
-	private int char_hitpoints;
+	private int char_level;
 
 	@Temporal(TemporalType.DATE)
 	java.time.LocalDate createdAt;
@@ -52,12 +52,12 @@ public class Player_Character {
 	private Player interpreter;
 
 	public Player_Character(String char_name, String char_race, String char_class, String char_concept,
-			int char_hitpoints, CharStatus char_status, String rPG_system, Player interpreter) {
+			int char_level, CharStatus char_status, String rPG_system, Player interpreter) {
 		this.char_name = char_name;
 		this.char_race = char_race;
 		this.char_class = char_class;
 		this.char_concept = char_concept;
-		this.char_hitpoints = char_hitpoints;
+		this.char_level = char_level;
 		this.createdAt = LocalDate.now();
 		this.char_status = char_status;
 		RPG_system = rPG_system;
@@ -104,12 +104,12 @@ public class Player_Character {
 		this.char_concept = char_concept;
 	}
 
-	public int getChar_hitpoints() {
-		return char_hitpoints;
+	public int getChar_level() {
+		return char_level;
 	}
 
-	public void setChar_hitpoints(int char_hitpoints) {
-		this.char_hitpoints = char_hitpoints;
+	public void setChar_level(int char_level) {
+		this.char_level = char_level;
 	}
 
 	public java.time.LocalDate getCreatedAt() {
