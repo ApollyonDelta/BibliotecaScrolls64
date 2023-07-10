@@ -11,16 +11,14 @@ public class PlayerMethods {
 	}
 	
 	public boolean verificarUsername(String usertestado) {
-		if(this.repository.verificarDisponibilidadeUsername(usertestado) == 0 ) {
-			return true;
-		}
-		return false;
+		return (this.repository.verificarDisponibilidadeUsername(usertestado) == 0);
 	}
 	
 	public boolean verificarEmail(String emailtestado) {
-		if(this.repository.verificarDisponibilidadeEmail(emailtestado) == 0 ) {
-			return true;
-		}
-		return false;
+		return(this.repository.verificarDisponibilidadeEmail(emailtestado) == 0);
+	}
+	
+	public boolean tentativaDeLogin() {
+		return true;
 	}
 }

@@ -26,7 +26,6 @@ public class Iniciar {
 	private void inicializar() {
 		initialCheck();
 		sm.telaInicial();
-		
 	}
 	
 	private void initialCheck() {
