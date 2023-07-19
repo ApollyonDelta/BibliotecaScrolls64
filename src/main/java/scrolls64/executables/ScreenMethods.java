@@ -1,14 +1,37 @@
 package scrolls64.executables;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import scrolls64.entities.*;
 
 public class ScreenMethods {
 
 	private static Scanner teclado = new Scanner(System.in);
+	private PlayerMethods pm;
+	private CharacterMethods cm;
 	
-	public ScreenMethods () {
+	public ScreenMethods(PlayerMethods pm, CharacterMethods cm) {
+		this.pm = pm;
+		this.cm = cm;
 	}
-	
+
+	public PlayerMethods getPm() {
+		return pm;
+	}
+
+	public void setPm(PlayerMethods pm) {
+		this.pm = pm;
+	}
+
+	public CharacterMethods getCm() {
+		return cm;
+	}
+
+	public void setCm(CharacterMethods cm) {
+		this.cm = cm;
+	}
+
 	public static void telaInicial() {
 		System.out.println("");
 		System.out.println("#---------------------------------------------------------------------------------#");
@@ -18,49 +41,39 @@ public class ScreenMethods {
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("");
 		System.out.println("|----------------------------------------|----------------------------------------|");
-		System.out.println("|                 Login                  |                 Cadastro               |");
+		System.out.println("|                 Login                  |                 Digite 1               |");
 		System.out.println("|----------------------------------------|----------------------------------------|");
-		System.out.println("|                 Digite 1               |                 Digite 2               |");
+		System.out.println("|                Cadastro                |                 Digite 2               |");
+		System.out.println("|----------------------------------------|----------------------------------------|");
+		System.out.println("|                  Sair                  |                 Digite 3               |");
 		System.out.println("|----------------------------------------|----------------------------------------|");
 		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("                   Sair                  |                 Digite 3                ");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
+		System.out.print("| Sua escolha: ");
 		
-		int selecao = teclado.nextInt();
-		for(int i=0; i<2;) {
-		switch(selecao) {
-		
-		case 1:
-			ScreenMethods.telaLogin();
-			i=2;
-			break;
-			
-		case 2:
-			ScreenMethods.telaCadastro();
-			i=2;
-			break;
-			
-		case 3:
-			i=2;
-		break;
-			}
+		try {
+			switch(teclado.nextInt()) {
+			case 1: teclado.nextLine(); ScreenMethods.telaLogin(); break;
+			case 2: teclado.nextLine(); ScreenMethods.telaCadastro(); break;
+			case 3: break;
+			default: teclado.nextLine(); telaInicial(); break;
+			}			
+		} catch (InputMismatchException e) {
+			teclado.nextLine();
+			telaInicial();
 		}
 	}
+	
 	public static void telaLogin(){
 		System.out.println("");
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("                                       Login                                       ");
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("                  Nome                   | ");
-		String nomeLogin = teclado.nextLine();
+		System.out.print("| Nome: "); String username = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("                  Senha                  | ");
-		String senhaLogin = teclado.nextLine();
+		System.out.print("| Senha: "); String senha = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("");
-		ScreenMethods.telaInicial();
+		//Keep going
 	}
 	
 	public static void telaCadastro(){
@@ -68,20 +81,17 @@ public class ScreenMethods {
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("                                     Cadastro                                      ");
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("                  Nome                   | ");
-		String nomeCadastro = teclado.nextLine();
+		System.out.print("| Nome: "); String nomeCadastro = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("                  E-mail                 | ");
-		String emailCadastro = teclado.nextLine();
+		System.out.print("| Email: "); String emailCadastro = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("                  Senha                  | ");
-		String senhaCadastro = teclado.nextLine();
+		System.out.print("| Senha: "); String senhaCadastro = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("");
-		ScreenMethods.telaInicial();
+		//Keep going
 	}
 	
-	public static void telaPaginaInicial() {
+	public static void telaPaginaInicial(Player usuarioLogado) {
 		System.out.println("");
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("");
@@ -90,107 +100,37 @@ public class ScreenMethods {
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("");
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("       Jogador  |  "); //Colocar o nome do Usuário Logado
+		System.out.println("| Seja bem-vindo(a), " + usuarioLogado.getUsername() +"!");
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("");
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("                Personagens              |                 Digite 1                ");
-		System.out.println("");
+		System.out.println("|               Personagens              |                 Digite 1               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|              Area do Usuario           |                 Digite 2               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                   Sair                 |                 Digite 3               |");
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("                    Sair                 |                 Digite 2                ");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
+		System.out.print("| Sua escolha: ");
 		
-		int selecao = teclado.nextInt();
-		for(int i=0; i<2;) {
-		switch(selecao) {
-		
-		case 1:
-			ScreenMethods.telaTodosPersonagens();
-			i=2;
-			break;
-		case 2:
-			ScreenMethods.telaInicial();
-			i=2;
-			break;
-			}
+		try {
+			switch(teclado.nextInt()) {
+			case 1: teclado.nextLine(); ScreenMethods.telaPersonagens(); break;
+			case 2: teclado.nextLine(); ScreenMethods.telaAreaUsuario(usuarioLogado); break;
+			case 3: break;
+			default: teclado.nextLine(); telaInicial(); break;
+			}			
+		} catch (InputMismatchException e) {
+			teclado.nextLine();
+			telaInicial();
 		}
 	}
 	
-	public static void telaTodosPersonagens() {
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("                                   Personagens                                     ");
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("                 * Pandora               |                 Digite 1               ");
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("                 * Pandora               |                 Digite 2               ");
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("                 * Pandora               |                 Digite 3               ");
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("                 * Pandora               |                 Digite 4               ");
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("                   Voltar                |                 Digite 5                ");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
+	private static void telaPersonagens() {
 		
-		int selecao = teclado.nextInt();
-		for(int i=0; i<2;) {
-		switch(selecao) {
-		
-		case 1:
-			i=2;
-			break;
-			
-		case 2:
-			i=2;
-			break;
-			
-		case 3:
-			i=2;
-			break;
-			
-		case 4:
-			i=2;
-			break;
-			
-		case 5:
-			ScreenMethods.telaPaginaInicial();
-			i=2;
-			break;
-			}
-		}
 	}
 	
-	public static void telapersonagem() {
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
-		System.out.println("                                   " + "Nome do Personagem" +"                                     ");
-		System.out.println("");
-		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.println("");
+	private static void telaAreaUsuario(Player usuarioLogado) {
 		
 	}
 }
-

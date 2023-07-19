@@ -17,8 +17,4 @@ public class PlayerMethods {
 	public boolean verificarEmail(String emailtestado) {
 		return(this.repository.verificarDisponibilidadeEmail(emailtestado) == 0);
 	}
-	
-	public boolean tentativaDeLogin() {
-		return true;
-	}
 }

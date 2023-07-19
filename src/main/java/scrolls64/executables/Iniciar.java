@@ -20,12 +20,12 @@ public class Iniciar {
 	
 	PlayerMethods pm = new PlayerMethods(PLYrepository);
 	CharacterMethods cm = new CharacterMethods(PCrepository);
-	ScreenMethods sm = new ScreenMethods();
+	ScreenMethods sm = new ScreenMethods(pm, cm);
 	
 	@PostConstruct
 	private void inicializar() {
 		initialCheck();
-		sm.telaInicial();
+		sm.telaPaginaInicial(new Player("gu", "xu", "lu"));
 	}
 	
 	private void initialCheck() {
