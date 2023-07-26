@@ -18,14 +18,13 @@ public class Iniciar {
 	@Autowired
 	private Player_CharacterRepository PCrepository;
 	
-	PlayerMethods pm = new PlayerMethods(PLYrepository);
-	CharacterMethods cm = new CharacterMethods(PCrepository);
-	ScreenMethods sm = new ScreenMethods(pm, cm);
-	
 	@PostConstruct
 	private void inicializar() {
+		PlayerMethods pm = new PlayerMethods(PLYrepository);
+		CharacterMethods cm = new CharacterMethods(PCrepository);
+		ScreenMethods sm = new ScreenMethods(pm, cm);
 		initialCheck();
-		sm.telaPaginaInicial(new Player("gu", "xu", "lu"));
+		sm.telaInicial();
 	}
 	
 	private void initialCheck() {

@@ -2,9 +2,11 @@ package scrolls64.entities;
 
 import java.time.LocalDate;
 import java.util.Set;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,8 +33,11 @@ public class Player {
     @Temporal(TemporalType.DATE) 
     java.time.LocalDate createdAt;
     
-    @OneToMany(mappedBy="interpreter", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy="interpreter", cascade = CascadeType.PERSIST, orphanRemoval=true)
     private Set <Player_Character> characters;
+    
+    public Player() {
+    }
 
 	public Player(String username, String email, String password) {
 		this.username = username;
@@ -87,6 +92,12 @@ public class Player {
 
 	public void setCharacters(Set<Player_Character> characters) {
 		this.characters = characters;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [id= " + id + ", username= " + username + ", email= " + email + ", password= " + password
+				+ ", createdAt= " + createdAt + ", characters= " + characters + "]";
 	}
 	
 }

@@ -24,43 +24,46 @@ public class Player_Character {
 	private Integer id;
 
 	@Column(length = 255)
-	private String char_name;
+	private String charName;
 
 	@Column(length = 50)
-	private String char_race;
+	private String charRace;
 
 	@Column(length = 50)
-	private String char_class;
+	private String charClass;
 
 	@Column(length = 255)
-	private String char_concept;
+	private String charConcept;
 
 	@Column
-	private int char_level;
+	private int charLevel;
 
 	@Temporal(TemporalType.DATE)
 	java.time.LocalDate createdAt;
 
 	@Enumerated(EnumType.ORDINAL)
-	private CharStatus char_status;
+	private CharStatus charStatus;
 
 	@Column(length = 50)
-	private String RPG_system;
+	private String RPGSystem;
 
 	@ManyToOne
-	@JoinColumn(name="player_id", referencedColumnName = "id")
+	@JoinColumn(name="playerId", referencedColumnName = "id")
 	private Player interpreter;
 
+	public Player_Character() {
+	}
+	
 	public Player_Character(String char_name, String char_race, String char_class, String char_concept,
 			int char_level, CharStatus char_status, String rPG_system, Player interpreter) {
-		this.char_name = char_name;
-		this.char_race = char_race;
-		this.char_class = char_class;
-		this.char_concept = char_concept;
-		this.char_level = char_level;
+		this.charName = char_name;
+		this.charRace = char_race;
+		this.charClass = char_class;
+		this.charConcept = char_concept;
+		this.charLevel = char_level;
 		this.createdAt = LocalDate.now();
-		this.char_status = char_status;
-		RPG_system = rPG_system;
+		this.charStatus = char_status;
+		RPGSystem = rPG_system;
 		this.interpreter = interpreter;
 	}
 
@@ -72,44 +75,44 @@ public class Player_Character {
 		this.id = id;
 	}
 
-	public String getChar_name() {
-		return char_name;
+	public String getCharName() {
+		return charName;
 	}
 
-	public void setChar_name(String char_name) {
-		this.char_name = char_name;
+	public void setCharName(String charName) {
+		this.charName = charName;
 	}
 
-	public String getChar_race() {
-		return char_race;
+	public String getCharRace() {
+		return charRace;
 	}
 
-	public void setChar_race(String char_race) {
-		this.char_race = char_race;
+	public void setCharRace(String charRace) {
+		this.charRace = charRace;
 	}
 
-	public String getChar_class() {
-		return char_class;
+	public String getCharClass() {
+		return charClass;
 	}
 
-	public void setChar_class(String char_class) {
-		this.char_class = char_class;
+	public void setCharClass(String charClass) {
+		this.charClass = charClass;
 	}
 
-	public String getChar_concept() {
-		return char_concept;
+	public String getCharConcept() {
+		return charConcept;
 	}
 
-	public void setChar_concept(String char_concept) {
-		this.char_concept = char_concept;
+	public void setCharConcept(String charConcept) {
+		this.charConcept = charConcept;
 	}
 
-	public int getChar_level() {
-		return char_level;
+	public int getCharLevel() {
+		return charLevel;
 	}
 
-	public void setChar_level(int char_level) {
-		this.char_level = char_level;
+	public void setCharLevel(int charLevel) {
+		this.charLevel = charLevel;
 	}
 
 	public java.time.LocalDate getCreatedAt() {
@@ -120,20 +123,20 @@ public class Player_Character {
 		this.createdAt = createdAt;
 	}
 
-	public CharStatus getChar_status() {
-		return char_status;
+	public CharStatus getCharStatus() {
+		return charStatus;
 	}
 
-	public void setChar_status(CharStatus char_status) {
-		this.char_status = char_status;
+	public void setCharStatus(CharStatus charStatus) {
+		this.charStatus = charStatus;
 	}
 
-	public String getRPG_system() {
-		return RPG_system;
+	public String getRPGSystem() {
+		return RPGSystem;
 	}
 
-	public void setRPG_system(String rPG_system) {
-		RPG_system = rPG_system;
+	public void setRPGSystem(String rPGSystem) {
+		RPGSystem = rPGSystem;
 	}
 
 	public Player getInterpreter() {
