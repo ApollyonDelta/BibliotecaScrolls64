@@ -1,8 +1,12 @@
 package scrolls64.executables;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import scrolls64.entities.Player;
+import scrolls64.entities.Player_Character;
 import scrolls64.repositories.Player_CharacterRepository;
 
 @Service
@@ -22,7 +26,19 @@ public class CharacterMethods {
 		this.repository = repository;
 	}
 	
-//	public void apagarPersonagensDoPlayer(Player interprete) {
-//		getRepository().deletarPersonagensDePlayer(interprete.getId());
-//	}
+	public List<Player_Character> listarPersonagensDoJogador(Player playerSelecionado) {
+		return getRepository().findByInterpreterId(playerSelecionado.getId());
+	}
+	
+	public Player_Character selecionarPorId(Integer idselecionado) {
+		return getRepository().findById(idselecionado).get();
+	}
+	
+	public Player_Character encontrarPorNome(String nometeste) {
+		return getRepository().findByCharName(nometeste).get();
+	}
+	
+	public void salvarPersonagem(Player_Character teste) {
+		getRepository().save(teste);
+	}
 }

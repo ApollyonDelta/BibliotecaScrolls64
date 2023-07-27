@@ -146,5 +146,5 @@ public class Player_Character {
 	public void setInterpreter(Player interpreter) {
 		this.interpreter = interpreter;
 	}
-
+	
 }

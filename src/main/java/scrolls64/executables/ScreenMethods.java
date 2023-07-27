@@ -1,9 +1,14 @@
 package scrolls64.executables;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
-import scrolls64.entities.*;
+import scrolls64.entities.CharStatus;
+import scrolls64.entities.Player;
+import scrolls64.entities.Player_Character;
 
 public class ScreenMethods {
 
@@ -13,26 +18,18 @@ public class ScreenMethods {
 	private static Player userLogado;
 	
 	public ScreenMethods(PlayerMethods pm, CharacterMethods cm) {
-		this.pm = pm;
-		this.cm = cm;
+		ScreenMethods.pm = pm;
+		ScreenMethods.cm = cm;
 	}
 
 	public static PlayerMethods getPm() {
 		return pm;
 	}
 
-	public void setPm(PlayerMethods pm) {
-		this.pm = pm;
-	}
-
 	public static CharacterMethods getCm() {
 		return cm;
 	}
-
-	public void setCm(CharacterMethods cm) {
-		this.cm = cm;
-	}
-
+	
 	public static void telaInicial() {
 		System.out.println("");
 		System.out.println("#---------------------------------------------------------------------------------#");
@@ -136,19 +133,134 @@ public class ScreenMethods {
 		
 		try {
 			switch(teclado.nextInt()) {
-			case 1: teclado.nextLine(); ScreenMethods.telaPersonagens(); break;
+			case 1: teclado.nextLine(); ScreenMethods.telaOptionsPersona(); break;
 			case 2: teclado.nextLine(); ScreenMethods.telaAreaUsuario(); break;
 			case 3: break;
 			default: teclado.nextLine(); telaInicial(); break;
 			}			
 		} catch (InputMismatchException e) {
 			teclado.nextLine();
-			telaInicial();
+			telaPaginaInicial();
 		}
 	}
 	
-	private static void telaPersonagens() {
+	public static void telaOptionsPersona() {
+		System.out.println("");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|             Criar Personagem           |                 Digite 1               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|             Seus Personagens           |                 Digite 2               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                  Voltar                |                 Digite 3               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("");
+		System.out.print("| Sua escolha: ");
 		
+		try {
+			switch(teclado.nextInt()) {
+			case 1: teclado.nextLine(); ScreenMethods.telaCriarPersonagem(); break;
+			case 2: teclado.nextLine(); ScreenMethods.telaPersonagens(); break;
+			case 3: break;
+			default: teclado.nextLine(); telaOptionsPersona(); break;
+			}			
+		} catch (InputMismatchException e) {
+			teclado.nextLine();
+			telaOptionsPersona();
+		}
+	}
+	
+	public static void telaCriarPersonagem() {
+		try {
+		System.out.println("");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                                                                                 |");
+		System.out.println("|                           Criando um Personagem                                 |");
+		System.out.println("|                                                                                 |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println();
+		System.out.print("| Insira o nome do seu personagem: "); String nomeChar = teclado.nextLine(); teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.print("| Insira a raça do seu personagem: "); String raceChar = teclado.nextLine(); teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.print("| Insira a classe do seu personagem: "); String classeChar = teclado.nextLine(); teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.print("| Descreva o conceito do seu personagem: "); String conceitoChar = teclado.nextLine(); teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.print("| Insira o level do seu personagem: "); int levelChar = teclado.nextInt(); teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.print("| Insira o sistema onde joga com ele: "); String sistemaChar = teclado.nextLine(); teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		
+		cm.salvarPersonagem(new Player_Character(nomeChar, raceChar, classeChar, conceitoChar, levelChar, CharStatus.ATIVO, sistemaChar, userLogado));
+		System.out.println("");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                                                                                 |");
+		System.out.println("|                           Personagem Criado!                                    |");
+		System.out.println("|                                                                                 |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		telaPersonagens();
+		
+	} catch (InputMismatchException e) {
+		teclado.nextLine();
+		telaCriarPersonagem();
+	}
+		
+	}
+	
+	public static void telaPersonagens() {
+		if (cm.listarPersonagensDoJogador(userLogado).isEmpty()) {
+			System.out.println("");
+			System.out.println("#---------------------------------------------------------------------------------#");
+			System.out.println("|                                                                                 |");
+			System.out.println("|                    Você não tem personagens cadastrados!                        |");
+			System.out.println("|                                                                                 |");
+			System.out.println("#---------------------------------------------------------------------------------#");
+			telaOptionsPersona();
+		}
+		List<String> listaDeNomes = new ArrayList<>();
+		for (Player_Character persona : cm.listarPersonagensDoJogador(userLogado)) {
+			listaDeNomes.add(persona.getCharName());
+			celulaPersonagem(persona);
+		}
+		System.out.println();
+		System.out.print("| Escreva o nome completo do personagem que deseja acessar: "); String nomePersona = teclado.nextLine();
+		
+		try {
+			if (!listaDeNomes.contains(nomePersona)) {
+				System.out.println("");
+				System.out.println("#---------------------------------------------------------------------------------#");
+				System.out.println("|                                                                                 |");
+				System.out.println("|                               Opção Inválida!                                   |");
+				System.out.println("|                                                                                 |");
+				System.out.println("#---------------------------------------------------------------------------------#");
+				telaPersonagens();
+			}
+			areaDoPersonagem(cm.encontrarPorNome(nomePersona));
+		} catch (InputMismatchException e) {
+			teclado.nextLine();
+			telaPersonagens();
+		}
+		
+	}
+	
+	public static void areaDoPersonagem(Player_Character persona) {
+		System.out.println(persona.getCharConcept());
+	}
+	
+	public static void celulaPersonagem(Player_Character persona) {
+		System.out.println();
+		System.out.println("@======================================================@");
+		System.out.println("| " + persona.getCharName());;
+		System.out.println("@======================================================@");
+		System.out.println("| " + persona.getCharRace() + " " + persona.getCharClass());
+		System.out.println("@======================================================@");
+		System.out.println("| " + persona.getCharConcept());
+		System.out.println("@======================================================@");
+		System.out.println();
+		System.out.println("#---------------------------------------------------#");
+		System.out.println("| Level " + persona.getCharLevel() + " | " + persona.getRPGSystem() + " | " + persona.getCharStatus().toString());
+		System.out.println("| Jogador: " + persona.getInterpreter().getUsername() + " | Criado em: " + persona.getCreatedAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+		System.out.println("#---------------------------------------------------#");
 	}
 	
 	public static void telaAlterarSenha() {

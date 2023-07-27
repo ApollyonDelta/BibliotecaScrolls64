@@ -35,9 +35,10 @@ public class Iniciar {
 		Player cesar = new Player("FlorinSupreme", "arteirocleitan@gmail.com", "Gug1806");
 		Player miguel = new Player("BLKZim", "miguelmigue804@gmail.com", "Teutio0303");
 		Player_Character kirion = new Player_Character("Kirion Newlin", "Elfo", "Mago", "Um mago estudioso que combate a ignorância.", 4, CharStatus.MORTO, "Tormenta20", daniel);
+		Player_Character vidar = new Player_Character("Vidar", "Draconato", "Paladino da Vingança", "Um morto que busca vingança e redenção.", 3, CharStatus.ATIVO, "Dungeons And Dragons", daniel);
 		Player_Character minus = new Player_Character("Minus Maximus", "Minotauro", "Bárbaro", "Um gigante gentil.", 5, CharStatus.HIATO, "Tormenta20", cesar);
 		Player_Character nero = new Player_Character("Nero Vancover", "Kliren", "Inventora", "Uma inventora que perdeu sua verdadeira forma.", 10, CharStatus.INATIVO, "Tormenta20", miguel);
 		PLYrepository.save(daniel); PLYrepository.save(cesar); PLYrepository.save(miguel);
-		PCrepository.save(kirion); PCrepository.save(minus); PCrepository.save(nero);
+		PCrepository.save(kirion); PCrepository.save(minus); PCrepository.save(nero); PCrepository.save(vidar);
 	}
 }
