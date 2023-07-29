@@ -1,5 +1,6 @@
-// Trabalho de Linguagem de Programação III - Daniel de Oliveira e Miguel Valentim Silva dos Santos
-// Turma 4K - 28/07/2023 - BibliotecaScrolls64
+// Trabalho de Linguagem de Programação III - BibliotecaScrolls64
+// Daniel de Oliveira e Miguel Valentim Silva dos Santos
+// Turma 4K - 28/07/2023 
 
 package scrolls64.executables;
 
