@@ -1,10 +1,10 @@
 package scrolls64.executables;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import scrolls64.entities.CharStatus;
 import scrolls64.entities.Player;
 import scrolls64.entities.Player_Character;
 import scrolls64.repositories.Player_CharacterRepository;
@@ -40,5 +40,19 @@ public class CharacterMethods {
 	
 	public void salvarPersonagem(Player_Character teste) {
 		getRepository().save(teste);
+	}
+	
+	public void aumentarLevel(Player_Character teste) {
+		teste.setCharLevel((teste.getCharLevel() + 1));
+		getRepository().save(teste);
+	}
+	
+	public void mudarStatus(Player_Character teste, CharStatus status) {
+		teste.setCharStatus(status);
+		getRepository().save(teste);
+	}
+	
+	public void excluirPersonagem(Player_Character teste) {
+		getRepository().deletar(teste.getId());
 	}
 }

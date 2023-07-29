@@ -160,7 +160,7 @@ public class ScreenMethods {
 			switch(teclado.nextInt()) {
 			case 1: teclado.nextLine(); ScreenMethods.telaCriarPersonagem(); break;
 			case 2: teclado.nextLine(); ScreenMethods.telaPersonagens(); break;
-			case 3: break;
+			case 3: teclado.nextLine(); telaPaginaInicial(); break;
 			default: teclado.nextLine(); telaOptionsPersona(); break;
 			}			
 		} catch (InputMismatchException e) {
@@ -178,20 +178,21 @@ public class ScreenMethods {
 		System.out.println("|                                                                                 |");
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println();
-		System.out.print("| Insira o nome do seu personagem: "); String nomeChar = teclado.nextLine(); teclado.nextLine();
+		System.out.print("| Insira o nome do seu personagem: "); String nomeChar = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.print("| Insira a raça do seu personagem: "); String raceChar = teclado.nextLine(); teclado.nextLine();
+		System.out.print("| Insira a raça do seu personagem: "); String raceChar = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.print("| Insira a classe do seu personagem: "); String classeChar = teclado.nextLine(); teclado.nextLine();
+		System.out.print("| Insira a classe do seu personagem: "); String classeChar = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.print("| Descreva o conceito do seu personagem: "); String conceitoChar = teclado.nextLine(); teclado.nextLine();
+		System.out.print("| Descreva o conceito do seu personagem: "); String conceitoChar = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.print("| Insira o level do seu personagem: "); int levelChar = teclado.nextInt(); teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
-		System.out.print("| Insira o sistema onde joga com ele: "); String sistemaChar = teclado.nextLine(); teclado.nextLine();
+		System.out.print("| Insira o sistema onde joga com ele: "); String sistemaChar = teclado.nextLine();
 		System.out.println("#---------------------------------------------------------------------------------#");
 		
 		cm.salvarPersonagem(new Player_Character(nomeChar, raceChar, classeChar, conceitoChar, levelChar, CharStatus.ATIVO, sistemaChar, userLogado));
+		alterarStatus(cm.encontrarPorNome(nomeChar));
 		System.out.println("");
 		System.out.println("#---------------------------------------------------------------------------------#");
 		System.out.println("|                                                                                 |");
@@ -202,6 +203,11 @@ public class ScreenMethods {
 		
 	} catch (InputMismatchException e) {
 		teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                                                                                 |");
+		System.out.println("|                   Dados Informados de Maneira Incorreta!                        |");
+		System.out.println("|                                                                                 |");
+		System.out.println("#---------------------------------------------------------------------------------#");
 		telaCriarPersonagem();
 	}
 		
@@ -244,7 +250,88 @@ public class ScreenMethods {
 	}
 	
 	public static void areaDoPersonagem(Player_Character persona) {
-		System.out.println(persona.getCharConcept());
+		celulaPersonagem(persona);
+		System.out.println("");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|              Aumentar Level            |                 Digite 1               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|              Alterar Status            |                 Digite 2               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|            Excluir Personagem          |                 Digite 3               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                  Voltar                |                 Digite 4               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("");
+		System.out.print("| Sua escolha: ");
+		
+		try {
+			switch(teclado.nextInt()) {
+			case 1: teclado.nextLine(); cm.aumentarLevel(persona); ScreenMethods.areaDoPersonagem(persona); break;
+			case 2: teclado.nextLine(); ScreenMethods.alterarStatus(persona); areaDoPersonagem(persona); break;
+			case 3: teclado.nextLine(); ScreenMethods.excluirPersonagem(persona); break;
+			case 4: teclado.nextLine(); telaOptionsPersona(); break;
+			default: teclado.nextLine(); areaDoPersonagem(persona); break;
+			}			
+		} catch (InputMismatchException e) {
+			teclado.nextLine();
+			areaDoPersonagem(persona);
+		}
+	}
+	
+	public static void alterarStatus(Player_Character persona) {
+		System.out.println("");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                        Qual O Status Do Seu Personagem?                         |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|     Ativo - Vivo e Campanha Aberta     |                 Digite 1               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|   Inativo - Vivo e Campanha Encerrada  |                 Digite 2               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|    Hiato - Vivo e Campanha Em Hiato    |                 Digite 3               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                  Morto                 |                 Digite 4               |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		try {
+			switch(teclado.nextInt()) {
+			case 1: teclado.nextLine(); cm.mudarStatus(persona, CharStatus.ATIVO); break;
+			case 2: teclado.nextLine(); cm.mudarStatus(persona, CharStatus.INATIVO); break;
+			case 3: teclado.nextLine(); cm.mudarStatus(persona, CharStatus.HIATO); break;
+			case 4: teclado.nextLine(); cm.mudarStatus(persona, CharStatus.MORTO); break;
+			default: alterarStatus(persona); break;
+			}
+		} catch (InputMismatchException e) {
+			teclado.nextLine();
+			alterarStatus(persona);
+		}
+	}
+	
+	public static void excluirPersonagem(Player_Character persona) {
+		System.out.println("");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("|                        Deletando Seu Personagem                                 |");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.print("| Insira sua senha: "); String senhaDeleteOne = teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.print("| Confirme sua senha: "); String senhaDeleteTwo = teclado.nextLine();
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println();
+		if (!senhaDeleteOne.equals(senhaDeleteTwo)) {
+			System.out.println("#---------------------------------------------------------------------------------#");
+			System.out.println("|                        As Senhas São Diferentes!                                |");
+			System.out.println("#---------------------------------------------------------------------------------#");
+			excluirPersonagem(persona);
+		}
+		if (!pm.confirmarSenha(userLogado, senhaDeleteOne)) {
+			System.out.println("#---------------------------------------------------------------------------------#");
+			System.out.println("|                     Senha Incorreta! Tente Novamente                            |");
+			System.out.println("#---------------------------------------------------------------------------------#");
+			excluirPersonagem(persona);
+		}
+		cm.excluirPersonagem(persona);
+		System.out.println("#---------------------------------------------------------------------------------#");
+		System.out.println("| Personagem deletado com sucesso! Adeus, " + persona.getCharName() + "!");
+		System.out.println("#---------------------------------------------------------------------------------#");
+		telaOptionsPersona();
 	}
 	
 	public static void celulaPersonagem(Player_Character persona) {

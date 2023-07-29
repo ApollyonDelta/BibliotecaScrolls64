@@ -10,5 +10,4 @@ public class BibliotecaScrolls64Application {
 	public static void main(String[] args) {
 		SpringApplication.run(BibliotecaScrolls64Application.class, args);
 	}
-
 }

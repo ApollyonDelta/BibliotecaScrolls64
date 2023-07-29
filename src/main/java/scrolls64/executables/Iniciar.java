@@ -1,3 +1,6 @@
+// Trabalho de Linguagem de Programação III - Daniel de Oliveira e Miguel Valentim Silva dos Santos
+// Turma 4K - 28/07/2023 - BibliotecaScrolls64
+
 package scrolls64.executables;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,7 @@ public class Iniciar {
 	@Autowired
 	private Player_CharacterRepository PCrepository;
 	
+	@SuppressWarnings("static-access")
 	@PostConstruct
 	private void inicializar() {
 		PlayerMethods pm = new PlayerMethods(PLYrepository);
